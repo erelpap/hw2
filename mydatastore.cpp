@@ -15,6 +15,14 @@ MyDataStore::MyDataStore(){
 }
 
 MyDataStore::~MyDataStore(){
+	std::set<Product*>::iterator it;
+		for(it = products_.begin(); it != products_.end(); ++it){
+			delete *it;
+		}
+	std::set<User*>::iterator it2;
+		for(it2 = users_.begin(); it2 != users_.end(); ++it2){
+			delete *it2;
+		}
 
 }
 
@@ -72,11 +80,15 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 	*/
 void MyDataStore::dump(std::ostream& ofile){
 	std::set<Product*>::iterator itP;
+	ofile << "<products>" << std::endl;
 	for(itP = products_.begin(); itP != products_.end(); ++itP){
     (*itP)->dump(ofile);
 	}
+	ofile << "</products>" << std::endl;
 	std::set<User*>::iterator itU;
+	ofile << "<users>" << std::endl;
 	for (itU = users_.begin(); itU != users_.end(); ++itU){
     (*itU)->dump(ofile);
 	}
+	ofile << "</users>" << std::endl;
 }

@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
                     }
                 }
                 if(!userExists){
-                    cout << "Invalid user!" << endl;
+                    cout << "Invalid request" << endl;
                 }
                 // if cart does not exist a new cart is created below
                 else if(!cartExists){
@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
             else if(cmd == "VIEWCART"){
                 string username;
                 ss >> username;
-                int searched;
+                int searched = -1;
                 // the index of the user is saved to find the corresponding
                 // cart in the cartProducts vector 
                 for(unsigned int i = 0; i < ds.cartUsers.size(); i++){
@@ -174,9 +174,16 @@ int main(int argc, char* argv[])
                         searched = i;
                     }
                 }
-                // In the corresponding element all the products are printed out
-                for(unsigned int i = 0; i < ds.cartProducts[searched].size(); i++){
-                    cout << ds.cartProducts[searched][i]->displayString() << endl;
+                // the user was not found
+                if(searched == -1) {
+                      cout << "Invalid username" << endl;
+                }
+                else {
+                    // In the corresponding element all the products are printed out
+                    for(unsigned int i = 0; i < ds.cartProducts[searched].size(); i++){
+                        cout << "item " << i+1 << endl;
+                        cout << ds.cartProducts[searched][i]->displayString() << endl;
+                    }
                 }
             }
             else if ( cmd == "BUYCART"){
@@ -212,7 +219,7 @@ int main(int argc, char* argv[])
                     reverseVector(ds.cartProducts[index]);
                 }
                 else{
-                    cout << "Invalid user" << endl;
+                    cout << "Invalid username" << endl;
                 }
             }
             else {
